@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="es"
+      xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <title>SIGYM - Servicio</title>
+    <link rel="stylesheet" th:href="@{/css/styles.css}">
+</head>
+
+<body>
+
+<div class="header">
+    <h1>SIGYM</h1>
+</div>
+
+<div class="container">
+
+    <h2 th:text="${servicio.idServicio == null}
+            ? 'Nuevo servicio'
+            : 'Editar servicio'">
+    </h2>
+
+    <form th:action="${servicio.idServicio == null}
+            ? @{/web/servicios/guardar}
+            : @{/web/servicios/actualizar/{id}
+                (id=${servicio.idServicio})}"
+          th:object="${servicio}"
+          method="post">
+
+        <div class="form-group">
+            <label>Nombre:</label>
+
+            <input type="text"
+                   th:field="*{nombre}"
+                   maxlength="80"
+                   required>
+        </div>
+
+        <div class="form-group">
+            <label>Descripción:</label>
+
+            <textarea th:field="*{descripcion}"
+                      maxlength="200"
+                      rows="4"></textarea>
+        </div>
+
+        <div class="form-group">
+            <label>Precio:</label>
+
+            <input type="number"
+                   step="0.01"
+                   min="0.01"
+                   th:field="*{precio}"
+                   required>
+        </div>
+
+        <div class="actions">
+
+            <button type="submit"
+                    class="btn"
+                    th:text="${servicio.idServicio == null}
+                        ? 'Guardar'
+                        : 'Actualizar'">
+                Guardar
+            </button>
+
+            <a href="/web/servicios"
+               class="btn btn-secondary">
+                Cancelar
+            </a>
+
+        </div>
+
+    </form>
+
+</div>
+
+</body>
+</html>

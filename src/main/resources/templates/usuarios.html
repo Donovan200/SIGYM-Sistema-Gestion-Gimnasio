@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="es"
+      xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <title>SIGYM - Usuarios</title>
+    <link rel="stylesheet" th:href="@{/css/styles.css}">
+</head>
+
+<body>
+
+<div class="header">
+    <h1>SIGYM</h1>
+</div>
+
+<div class="container">
+
+    <div class="actions">
+        <a href="/" class="btn btn-secondary">
+            Volver al inicio
+        </a>
+
+        <a href="/web/usuarios/nuevo" class="btn">
+            Nuevo usuario
+        </a>
+    </div>
+
+    <h2>Usuarios</h2>
+
+    <table>
+
+        <thead>
+        <tr>
+            <th>ID</th>
+            <th>Usuario</th>
+            <th>Rol</th>
+            <th>Activo</th>
+            <th>Acciones</th>
+        </tr>
+        </thead>
+
+        <tbody>
+
+        <tr th:each="usuario : ${usuarios}">
+
+            <td th:text="${usuario.idUsuario}"></td>
+
+            <td th:text="${usuario.username}"></td>
+
+            <td th:text="${usuario.rol}"></td>
+
+            <td th:text="${usuario.activo ? 'Sí' : 'No'}"></td>
+
+            <td>
+
+                <div class="actions">
+
+                    <a th:href="@{/web/usuarios/editar/{id}
+                            (id=${usuario.idUsuario})}"
+                       class="btn btn-secondary">
+                        Editar
+                    </a>
+
+                    <form th:action="@{/web/usuarios/eliminar/{id}
+                            (id=${usuario.idUsuario})}"
+                          method="post">
+
+                        <button type="submit"
+                                class="btn btn-danger"
+                                onclick="return confirm('¿Seguro que deseas eliminar este usuario?')">
+                            Eliminar
+                        </button>
+
+                    </form>
+
+                </div>
+
+            </td>
+
+        </tr>
+
+        </tbody>
+
+    </table>
+
+</div>
+
+</body>
+</html>

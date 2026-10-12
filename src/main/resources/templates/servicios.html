@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="es"
+      xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <title>SIGYM - Servicios</title>
+    <link rel="stylesheet" th:href="@{/css/styles.css}">
+</head>
+
+<body>
+
+<div class="header">
+    <h1>SIGYM</h1>
+</div>
+
+<div class="container">
+
+    <div class="actions">
+        <a href="/" class="btn btn-secondary">
+            Volver al inicio
+        </a>
+
+        <a href="/web/servicios/nuevo" class="btn">
+            Nuevo servicio
+        </a>
+    </div>
+
+    <h2>Servicios</h2>
+
+    <table>
+
+        <thead>
+        <tr>
+            <th>ID</th>
+            <th>Nombre</th>
+            <th>Descripción</th>
+            <th>Precio</th>
+            <th>Acciones</th>
+        </tr>
+        </thead>
+
+        <tbody>
+
+        <tr th:each="servicio : ${servicios}">
+
+            <td th:text="${servicio.idServicio}"></td>
+
+            <td th:text="${servicio.nombre}"></td>
+
+            <td th:text="${servicio.descripcion}"></td>
+
+            <td>
+                $<span th:text="${servicio.precio}"></span>
+            </td>
+
+            <td>
+
+                <div class="actions">
+
+                    <a th:href="@{/web/servicios/editar/{id}
+                            (id=${servicio.idServicio})}"
+                       class="btn btn-secondary">
+                        Editar
+                    </a>
+
+                    <form th:action="@{/web/servicios/eliminar/{id}
+                            (id=${servicio.idServicio})}"
+                          method="post">
+
+                        <button type="submit"
+                                class="btn btn-danger"
+                                onclick="return confirm('¿Seguro que deseas eliminar este servicio?')">
+                            Eliminar
+                        </button>
+
+                    </form>
+
+                </div>
+
+            </td>
+
+        </tr>
+
+        </tbody>
+
+    </table>
+
+</div>
+
+</body>
+</html>

@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="es"
+      xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <title>SIGYM - Pagos</title>
+    <link rel="stylesheet" th:href="@{/css/styles.css}">
+</head>
+
+<body>
+
+<div class="header">
+    <h1>SIGYM</h1>
+</div>
+
+<div class="container">
+
+    <div class="actions">
+        <a href="/" class="btn btn-secondary">
+            Volver al inicio
+        </a>
+
+        <a href="/web/pagos/nuevo" class="btn">
+            Nuevo pago
+        </a>
+    </div>
+
+    <h2>Pagos</h2>
+
+    <table>
+
+        <thead>
+        <tr>
+            <th>ID</th>
+            <th>Monto</th>
+            <th>Fecha de pago</th>
+            <th>Método de pago</th>
+            <th>Prospecto</th>
+            <th>Acciones</th>
+        </tr>
+        </thead>
+
+        <tbody>
+
+        <tr th:each="pago : ${pagos}">
+
+            <td th:text="${pago.idPago}"></td>
+
+            <td>
+                $<span th:text="${pago.monto}"></span>
+            </td>
+
+            <td th:text="${pago.fechaPago}"></td>
+
+            <td th:text="${pago.metodoPago}"></td>
+
+            <td th:text="${pago.nombreProspecto}"></td>
+
+            <td>
+                <div class="actions">
+
+                    <a th:href="@{/web/pagos/editar/{id}
+                            (id=${pago.idPago})}"
+                       class="btn btn-secondary">
+                        Editar
+                    </a>
+
+                    <form th:action="@{/web/pagos/eliminar/{id}
+                            (id=${pago.idPago})}"
+                          method="post">
+
+                        <button type="submit"
+                                class="btn btn-danger"
+                                onclick="return confirm('¿Seguro que deseas eliminar este pago?')">
+                            Eliminar
+                        </button>
+
+                    </form>
+
+                </div>
+            </td>
+
+        </tr>
+
+        </tbody>
+
+    </table>
+
+</div>
+
+</body>
+</html>

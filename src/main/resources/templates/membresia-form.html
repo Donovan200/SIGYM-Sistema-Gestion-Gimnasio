@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="es"
+      xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <title>SIGYM - Membresía</title>
+    <link rel="stylesheet" th:href="@{/css/styles.css}">
+</head>
+
+<body>
+
+<div class="header">
+    <h1>SIGYM</h1>
+</div>
+
+<div class="container">
+
+    <h2 th:text="${membresia.idMembresia == null}
+            ? 'Nueva membresía'
+            : 'Editar membresía'">
+    </h2>
+
+    <form th:action="${membresia.idMembresia == null}
+            ? @{/web/membresias/guardar}
+            : @{/web/membresias/actualizar/{id}
+                (id=${membresia.idMembresia})}"
+          th:object="${membresia}"
+          method="post">
+
+        <div class="form-group">
+            <label>Tipo de membresía:</label>
+
+            <input type="text"
+                   th:field="*{tipo}"
+                   required>
+        </div>
+
+        <div class="form-group">
+            <label>Fecha de inicio:</label>
+
+            <input type="date"
+                   th:field="*{fechaInicio}"
+                   required>
+        </div>
+
+        <div class="form-group">
+            <label>Fecha de fin:</label>
+
+            <input type="date"
+                   th:field="*{fechaFin}"
+                   required>
+        </div>
+
+        <div class="form-group">
+            <label>Precio:</label>
+
+            <input type="number"
+                   step="0.01"
+                   min="0.01"
+                   th:field="*{precio}"
+                   required>
+        </div>
+
+        <div class="form-group">
+            <label>Prospecto:</label>
+
+            <select th:field="*{idProspecto}" required>
+
+                <option value="">
+                    Selecciona un prospecto
+                </option>
+
+                <option th:each="prospecto : ${prospectos}"
+                        th:value="${prospecto.idProspecto}"
+                        th:text="${prospecto.nombre}">
+                </option>
+
+            </select>
+        </div>
+
+        <div class="form-group">
+
+            <label>Servicios:</label>
+
+            <div th:each="servicio : ${servicios}"
+                 style="margin-bottom: 8px;">
+
+                <input type="checkbox"
+                       th:field="*{idsServicios}"
+                       th:value="${servicio.idServicio}"
+                       style="width: auto;">
+
+                <span th:text="${servicio.nombre}"></span>
+
+                -
+                $<span th:text="${servicio.precio}"></span>
+
+            </div>
+
+        </div>
+
+        <div class="actions">
+
+            <button type="submit"
+                    class="btn"
+                    th:text="${membresia.idMembresia == null}
+                        ? 'Guardar'
+                        : 'Actualizar'">
+                Guardar
+            </button>
+
+            <a href="/web/membresias"
+               class="btn btn-secondary">
+                Cancelar
+            </a>
+
+        </div>
+
+    </form>
+
+</div>
+
+</body>
+</html>

@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="es"
+      xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <title>SIGYM - Membresías</title>
+    <link rel="stylesheet" th:href="@{/css/styles.css}">
+</head>
+
+<body>
+
+<div class="header">
+    <h1>SIGYM</h1>
+</div>
+
+<div class="container">
+
+    <div class="actions">
+        <a href="/" class="btn btn-secondary">
+            Volver al inicio
+        </a>
+
+        <a href="/web/membresias/nueva" class="btn">
+            Nueva membresía
+        </a>
+    </div>
+
+    <h2>Membresías</h2>
+
+    <table>
+
+        <thead>
+        <tr>
+            <th>ID</th>
+            <th>Tipo</th>
+            <th>Fecha inicio</th>
+            <th>Fecha fin</th>
+            <th>Precio</th>
+            <th>Prospecto</th>
+            <th>Servicios</th>
+            <th>Acciones</th>
+        </tr>
+        </thead>
+
+        <tbody>
+
+        <tr th:each="membresia : ${membresias}">
+
+            <td th:text="${membresia.idMembresia}"></td>
+
+            <td th:text="${membresia.tipo}"></td>
+
+            <td th:text="${membresia.fechaInicio}"></td>
+
+            <td th:text="${membresia.fechaFin}"></td>
+
+            <td>
+                $<span th:text="${membresia.precio}"></span>
+            </td>
+
+            <td th:text="${membresia.nombreProspecto}"></td>
+
+            <td>
+                <span th:if="${membresia.nombresServicios != null
+                        and !membresia.nombresServicios.isEmpty()}"
+                      th:text="${#strings.listJoin(membresia.nombresServicios, ', ')}">
+                </span>
+
+                <span th:if="${membresia.nombresServicios == null
+                        or membresia.nombresServicios.isEmpty()}">
+                    Sin servicios
+                </span>
+            </td>
+
+            <td>
+
+                <div class="actions">
+
+                    <a th:href="@{/web/membresias/editar/{id}
+                            (id=${membresia.idMembresia})}"
+                       class="btn btn-secondary">
+                        Editar
+                    </a>
+
+                    <form th:action="@{/web/membresias/eliminar/{id}
+                            (id=${membresia.idMembresia})}"
+                          method="post">
+
+                        <button type="submit"
+                                class="btn btn-danger"
+                                onclick="return confirm('¿Seguro que deseas eliminar esta membresía?')">
+                            Eliminar
+                        </button>
+
+                    </form>
+
+                </div>
+
+            </td>
+
+        </tr>
+
+        </tbody>
+
+    </table>
+
+</div>
+
+</body>
+</html>

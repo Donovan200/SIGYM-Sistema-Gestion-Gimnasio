@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="es"
+      xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <title>SIGYM - Prospectos</title>
+    <link rel="stylesheet" th:href="@{/css/styles.css}">
+</head>
+
+<body>
+
+<div class="header">
+    <h1>SIGYM</h1>
+</div>
+
+<div class="container">
+
+    <div class="actions">
+        <a href="/" class="btn btn-secondary">
+            Volver al inicio
+        </a>
+
+        <a href="/web/prospectos/nuevo" class="btn">
+            Nuevo prospecto
+        </a>
+    </div>
+
+    <h2>Prospectos</h2>
+
+    <table>
+
+        <thead>
+        <tr>
+            <th>ID</th>
+            <th>Nombre</th>
+            <th>Fecha de nacimiento</th>
+            <th>Teléfono</th>
+            <th>Correo</th>
+            <th>Tipo de registro</th>
+            <th>Acciones</th>
+        </tr>
+        </thead>
+
+        <tbody>
+
+        <tr th:each="prospecto : ${prospectos}">
+
+            <td th:text="${prospecto.idProspecto}"></td>
+
+            <td th:text="${prospecto.nombre}"></td>
+
+            <td th:text="${prospecto.fechaNacimiento}"></td>
+
+            <td th:text="${prospecto.telefono}"></td>
+
+            <td th:text="${prospecto.correo}"></td>
+
+            <td th:text="${prospecto.tipoRegistro}"></td>
+
+            <td>
+                <div class="actions">
+
+                    <a th:href="@{/web/prospectos/editar/{id}
+                            (id=${prospecto.idProspecto})}"
+                       class="btn btn-secondary">
+                        Editar
+                    </a>
+
+                    <form th:action="@{/web/prospectos/eliminar/{id}
+                            (id=${prospecto.idProspecto})}"
+                          method="post">
+
+                        <button type="submit"
+                                class="btn btn-danger"
+                                onclick="return confirm('¿Seguro que deseas eliminar este prospecto?')">
+                            Eliminar
+                        </button>
+
+                    </form>
+
+                </div>
+            </td>
+
+        </tr>
+
+        </tbody>
+
+    </table>
+
+</div>
+
+</body>
+</html>

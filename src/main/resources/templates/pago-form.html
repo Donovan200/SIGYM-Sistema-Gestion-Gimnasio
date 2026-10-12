@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="es"
+      xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <title>SIGYM - Pago</title>
+    <link rel="stylesheet" th:href="@{/css/styles.css}">
+</head>
+
+<body>
+
+<div class="header">
+    <h1>SIGYM</h1>
+</div>
+
+<div class="container">
+
+    <h2 th:text="${pago.idPago == null}
+            ? 'Nuevo pago'
+            : 'Editar pago'">
+    </h2>
+
+    <form th:action="${pago.idPago == null}
+            ? @{/web/pagos/guardar}
+            : @{/web/pagos/actualizar/{id}
+                (id=${pago.idPago})}"
+          th:object="${pago}"
+          method="post">
+
+        <div class="form-group">
+            <label>Monto:</label>
+
+            <input type="number"
+                   step="0.01"
+                   min="0.01"
+                   th:field="*{monto}"
+                   required>
+        </div>
+
+        <div class="form-group">
+            <label>Fecha de pago:</label>
+
+            <input type="date"
+                   th:field="*{fechaPago}"
+                   required>
+        </div>
+
+        <div class="form-group">
+            <label>Método de pago:</label>
+
+            <select th:field="*{metodoPago}" required>
+
+                <option value="">
+                    Selecciona un método
+                </option>
+
+                <option value="Efectivo">
+                    Efectivo
+                </option>
+
+                <option value="Tarjeta">
+                    Tarjeta
+                </option>
+
+                <option value="Transferencia">
+                    Transferencia
+                </option>
+
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label>Membresía:</label>
+
+            <select th:field="*{idMembresia}" required>
+
+                <option value="">
+                    Selecciona una membresía
+                </option>
+
+                <option th:each="membresia : ${membresias}"
+                        th:value="${membresia.idMembresia}"
+                        th:text="${membresia.nombreProspecto + ' - ' + membresia.tipo}">
+                </option>
+
+            </select>
+        </div>
+
+        <div class="actions">
+
+            <button type="submit"
+                    class="btn"
+                    th:text="${pago.idPago == null}
+                        ? 'Guardar'
+                        : 'Actualizar'">
+                Guardar
+            </button>
+
+            <a href="/web/pagos"
+               class="btn btn-secondary">
+                Cancelar
+            </a>
+
+        </div>
+
+    </form>
+
+</div>
+
+</body>
+</html>

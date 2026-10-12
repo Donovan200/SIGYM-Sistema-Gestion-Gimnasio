@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="es"
+      xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <title>SIGYM - Inicio</title>
+    <link rel="stylesheet" th:href="@{/css/styles.css}">
+</head>
+
+<body>
+
+<div class="header">
+    <h1>SIGYM</h1>
+
+    <form action="/web/logout" method="post">
+        <button type="submit" class="btn btn-danger">
+            Cerrar sesión
+        </button>
+    </form>
+</div>
+
+<div class="container">
+
+    <div class="text-center">
+        <h2>Sistema de Gestión de Gimnasio</h2>
+        <p>Administración de prospectos, membresías, servicios, pagos y usuarios.</p>
+    </div>
+
+    <hr>
+
+    <h3>Menú principal</h3>
+
+    <div class="menu">
+
+        <a href="/web/prospectos">
+            Prospectos
+        </a>
+
+        <a href="/web/membresias">
+            Membresías
+        </a>
+
+        <a href="/web/servicios">
+            Servicios
+        </a>
+
+        <a href="/web/pagos">
+            Pagos
+        </a>
+
+        <a href="/web/usuarios">
+            Usuarios
+        </a>
+
+    </div>
+
+</div>
+
+</body>
+</html>

@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="es"
+      xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <title>SIGYM - Prospecto</title>
+    <link rel="stylesheet" th:href="@{/css/styles.css}">
+</head>
+
+<body>
+
+<div class="header">
+    <h1>SIGYM</h1>
+</div>
+
+<div class="container">
+
+    <h2 th:text="${prospecto.idProspecto == null}
+            ? 'Nuevo prospecto'
+            : 'Editar prospecto'">
+    </h2>
+
+    <form th:action="${prospecto.idProspecto == null}
+            ? @{/web/prospectos/guardar}
+            : @{/web/prospectos/actualizar/{id}
+                (id=${prospecto.idProspecto})}"
+          th:object="${prospecto}"
+          method="post">
+
+        <div class="form-group">
+            <label>Nombre:</label>
+
+            <input type="text"
+                   th:field="*{nombre}"
+                   required>
+        </div>
+
+        <div class="form-group">
+            <label>Fecha de nacimiento:</label>
+
+            <input type="date"
+                   th:field="*{fechaNacimiento}"
+                   required>
+        </div>
+
+        <div class="form-group">
+            <label>Teléfono:</label>
+
+            <input type="text"
+                   th:field="*{telefono}"
+                   required>
+        </div>
+
+        <div class="form-group">
+            <label>Correo:</label>
+
+            <input type="email"
+                   th:field="*{correo}"
+                   required>
+        </div>
+
+        <div class="form-group">
+            <label>Tipo de registro:</label>
+
+            <input type="text"
+                   th:field="*{tipoRegistro}"
+                   required>
+        </div>
+
+        <div class="actions">
+
+            <button type="submit"
+                    class="btn"
+                    th:text="${prospecto.idProspecto == null}
+                        ? 'Guardar'
+                        : 'Actualizar'">
+                Guardar
+            </button>
+
+            <a href="/web/prospectos"
+               class="btn btn-secondary">
+                Cancelar
+            </a>
+
+        </div>
+
+    </form>
+
+</div>
+
+</body>
+</html>
